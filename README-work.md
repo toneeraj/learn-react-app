@@ -147,12 +147,61 @@ export default App;
 
 ```
 
-## TBD
-* When a state changes, React re-renders the component where the state prperty is used. So, use the setState() method provided by React, which enables it to rerender the DOM. It effectively allows REACT to select the part of the original state that got changed using setState(), and it will keep all other state untouched. Essentially, it will compare the tree to find the difference. and will render where the `props` or `state` is used. 
+## Event Handlers and Passing Method References Between Components
 
 * Handling events with methods - Simple Event Handling - e.g. onClick() event, a JavaScript function shoud be called. So, we will pass within curly braces, {} - java script function defined as a value. i.e. define a function and assign that to a variable. Then, access that variable inside the {} as event Handler function.
 
 * Passing Method References Between Components - we want to do this to achieve the design pattern where the state change logic will be limited to certain components and other components will be relying on it to perform this logic. Hence, the passing method reference between components is necessary.
 
+
+```javascript
+ stateChangeHandler = (arg1, arg2) => {
+    console.log('In future, this handler will change the state whenever invoked.');
+    if (arg2 != null) {
+      console.log('From the component where this handler was invoked, the first argument passed is "' + arg1 
+      + '" and the second argument passed is "' + arg2 + '"');
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello, happy learning react!</h1>
+        {
+          this.state.Persons.map (p => {
+            if (p.name) {
+              return <Person 
+                        name={p.name} 
+                        key={p.id} 
+                        //passing method by reference which will allow access to handler method in another component. No args passed.
+                        click={this.stateChangeHandler} 
+                        //passing method by reference. This also passes two args which will get accessed in handler method.
+                        //a random string is the first arg and the person component ID attribute is the second arg.
+                        clickWithArg={this.stateChangeHandler.bind(this, 'I am the first arg', p.id)}>
+                      {p.text}</Person>
+            }
+            return null;
+          })
+          
+```
+now, the person component will simply access the this method reference via `props.click` or `props.clickWithArg` as applicable.
+
+Below excerpt from the Person.js, shows how clicking the first paragraph will invoke the handler wihtout any args and clicking the 
+second paragraph will invoke the handler method by passing two arguments.
+
+```javascript
+<div>
+        <p onClick = {props.click}>I am first paragraph of a person component. The name attribute value passed to me is <b>{isNamePresent}</b>. 
+         I can also print a value/result from a javascript function here. For e.g. {Math.random()}. 
+         Here is what is passed between the component start and end tags - <em>{props.children}</em>. Now, if you click me, I will demo how to pass method references between components.</p>
+        
+         <p onClick = {props.clickWithArg}>I am the second paragraph of the above person component. Now, if you click me, I will demo how to pass method references between components. Also, I will pass the arguments to the handler. For instance, I pass the ID of this component as second argument.</p>
+    </div>
+```
+
+
+## TBD
+
+* When a state changes, React re-renders the component where the state prperty is used. So, use the setState() method provided by React, which enables it to rerender the DOM. It effectively allows REACT to select the part of the original state that got changed using setState(), and it will keep all other state untouched. Essentially, it will compare the tree to find the difference. and will render where the `props` or `state` is used. 
 
 When you now access `npm start` and the app at `http://localhost:3000`, you will see the text has changed.
