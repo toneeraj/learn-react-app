@@ -13,7 +13,8 @@ const person = (props) => {
     }
     return (
     <p>I am a person component. The name attribute value passed to me is <b>{isNamePresent}</b>. 
-    I can also print a value/result from a javascript function here. For e.g. {Math.random()} </p>
+    I can also print a value/result from a javascript function here. For e.g. {Math.random()}. Here is what is passed between the component start and end tags - <em>{props.children}</em></p>
+
     );
 }
 

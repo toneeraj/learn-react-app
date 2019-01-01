@@ -5,6 +5,7 @@ This contains the changes done to learn react.
 
 * Update and see the changes in default project
 * Create a new Person Component and configure it as part of App.js
+* props children property
 
 
 ### Update and see the changes in default project
@@ -59,4 +60,15 @@ Firstly, without passing any *name* attribute. Secondly, with a value for **name
       </div>
 ```
 
+### props children peoperty to access value passed between tags
+When we want to access
+
+```javascript
+    <div className="App">
+        <h1>Hello, happy learning react!</h1>
+        <Person />
+        <Person name="react learner" />
+        <Person name="react senior learner">I am the text in between person component tag. To see me use props.children inside component</Person>
+      </div>
+```
 When you now access `npm start` and the app at `http://localhost:3000`, you will see the text has changed.
