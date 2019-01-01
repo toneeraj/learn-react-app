@@ -20,7 +20,12 @@ const person = (props) => {
          I can also print a value/result from a javascript function here. For e.g. {Math.random()}. 
          Here is what is passed between the component start and end tags - <em>{props.children}</em>. Now, if you click me, I will demo how to pass method references between components.</p>
         
-         <p onClick = {props.clickWithArg}>I am the second paragraph of the above person component. Now, if you click me, I will demo how to pass method references between components. Also, I will pass the arguments to the handler. For instance, I pass the ID of this component as second argument.</p>
+         <p onClick = {props.clickWithArg}>I am the second paragraph of the above person component. 
+         Now, if you click me, I will demo how to pass method references between components. 
+         Also, I will pass the arguments to the handler.
+         For instance, I pass the ID of this component as second argument.</p>
+
+         <input type="text" onChange = {props.change} value = {props.name} />
     </div>
     );
 }

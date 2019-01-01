@@ -21,6 +21,25 @@ class App extends Component {
     }
   }
 
+  nameChangeHandler = (event, personId) => {
+    
+    //Get the index/id in the array which need to be updated
+    const personIndex = this.state.Persons.findIndex(
+      p => {return p.id === personId });
+
+    //Get the object at that location from the state.
+    const person  = {...this.state.Persons[personIndex]}
+    person.name = event.target.value;
+
+    //replace this object in the state with the existing one.
+    const persons = [...this.state.Persons];
+    persons[personIndex] = person;
+
+    this.setState( {Persons : persons} );
+
+    console.log (event.target.value + ' ' + personIndex);
+  }
+
   render() {
     return (
       <div className="App">
@@ -35,7 +54,9 @@ class App extends Component {
                         click={this.stateChangeHandler} 
                         //passing method by reference. This also passes two args which will get accessed in handler method.
                         //a random string is the first arg and the person component ID attribute is the second arg.
-                        clickWithArg={this.stateChangeHandler.bind(this, 'I am the first arg', p.id)}>
+                        clickWithArg={this.stateChangeHandler.bind(this, 'I am the first arg', p.id)}
+                        //using anonymous function and not binding here
+                        change={(event) => this.nameChangeHandler(event, p.id)}>
                       {p.text}</Person>
             }
             return null;

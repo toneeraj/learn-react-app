@@ -200,8 +200,51 @@ second paragraph will invoke the handler method by passing two arguments.
 ```
 
 
-## TBD
+## Updating state immutably on an event 
 
 * When a state changes, React re-renders the component where the state prperty is used. So, use the setState() method provided by React, which enables it to rerender the DOM. It effectively allows REACT to select the part of the original state that got changed using setState(), and it will keep all other state untouched. Essentially, it will compare the tree to find the difference. and will render where the `props` or `state` is used. 
+
+* State should always be changed immutably.
+
+* Adding a text box in the person component, when we enter a text, that will trigger an onChange event,
+which in turn will provide text box content access (via `event.target.value`) to the event handler method. 
+As per the best practice, the event handler method - since will be updating the state - hence will be defined in the App.js (container). This method reference will be accessed in person component via `props.handler_method_name`
+
+
+The handler method is defined here in the App.js
+```javascript
+nameChangeHandler = (event, personId) => {
+    
+    //Get the index/id in the array which need to be updated
+    const personIndex = this.state.Persons.findIndex(
+      p => {return p.id === personId });
+
+    //Get the object at that location from the state.
+    const person  = {...this.state.Persons[personIndex]}
+    person.name = event.target.value;
+
+    //replace this object in the state with the existing one.
+    const persons = [...this.state.Persons];
+    persons[personIndex] = person;
+
+    this.setState( {Persons : persons} );
+
+    console.log (event.target.value + ' ' + personIndex);
+  }
+
+```
+In App.js, tHe above handler method gets passed as method reference to person component.
+```javascript
+ //using anonymous function and not binding here
+                        change={(event) => this.nameChangeHandler(event, p.id)}>
+```
+
+In Person.js, person component will access / invoke this function onChange event via accessing props.
+
+```javascript
+
+ <input type="text" onChange = {props.change} value = {props.name} />
+
+```
 
 When you now access `npm start` and the app at `http://localhost:3000`, you will see the text has changed.
