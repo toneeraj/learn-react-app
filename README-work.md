@@ -1,7 +1,7 @@
 This contains the changes done to learn react. 
 
 
-## Section - Initial Learning
+## Section - Introducing components
 
 * Update and see the changes in default project
 * Create a new Person Component and configure it as part of App.js
@@ -29,6 +29,8 @@ This is a component defined as a JS function. This should always return a React 
 `<p>` tag used is from React library. React automatically passes the values of attributes to props.
 props is the convention, so using it for readability otherwise, any other value is also possible.
 Inside the `{}`, either we use props.`<name_of_attribute>` or the result of executing javascript function.
+
+
 
 ```javascript
 import React from 'react';
@@ -61,7 +63,7 @@ Firstly, without passing any *name* attribute. Secondly, with a value for **name
 ```
 
 ### props children peoperty to access value passed between tags
-When we want to access
+Using {props.children} inside the component, you can access the values passed `I am the text i.....`
 
 ```javascript
     <div className="App">
@@ -71,4 +73,66 @@ When we want to access
         <Person name="react senior learner">I am the text in between person component tag. To see me use props.children inside component</Person>
       </div>
 ```
+so, below is the excerpt from the Person.js
+
+```javascript
+ return (
+    <p>I am a person component. The name attribute value passed to me is <b>{isNamePresent}</b>. 
+    I can also print a value/result from a javascript function here. For e.g. {Math.random()}. Here is what is passed between the component start and end tags - <em>{props.children}</em></p>
+
+```
+
+**Note:** - The component above has been defined as function. THis is good practive if you don't need states, go with this. Otherwise, if my component needs to have state, then define the component using class - see `App.js` which is a component using class approach. When we define like this, we get access to special variable called `state` - see next section fro more details.
+
+## Section - Introducing States and using javascript map function (Iteration)
+
+Note that the component used above (Person) is function component as it doesn't have state. 
+
+* Introducing `state` which is property - implicitly made available to a class which extends a Component. These components are called containers. There will be few of these which will be responsible for changing the state. You create a `class` which extends from `Component` to create a container kind of component.
+
+* If a state contains an array, we will use the javascript `map` function to create a JSX component and populate it with the state values
+
+* React/JSX expects a `key` attribute to efficiently manage updating the DOM. So, assuming an id attribute on state that is being passed to key.
+
+```javascript
+
+class App extends Component {
+
+  state = {
+    Persons : [
+      {id : '1'},
+      {id : '2', name : 'react learner'},
+      {id : '3', name : 'react senior slearner', text:'I am the text in between person component tag. To see me use props.children inside component'}
+    ]
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello, happy learning react!</h1>
+        {
+          this.state.Persons.map (p => {return <Person name={p.name} key={p.id}>{p.text}</Person>})
+        }  
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
+
+## Section - Introducing conditionals (javascript if) to render a component
+
+* Using Javascript if to apply a condition to render a component. 
+* Print / render the Person component only if it has the name attribute as non - null value.
+
+## TBD
+* When a state changes, React re-renders the component where the state prperty is used. So, use the setState() method provided by React, which enables it to rerender the DOM. It effectively allows REACT to select the part of the original state that got changed using setState(), and it will keep all other state untouched. Essentially, it will compare the tree to find the difference. and will render where the `props` or `state` is used. 
+
+* Handling events with methods - Simple Event Handling - e.g. onClick() event, a JavaScript function shoud be called. So, we will pass within curly braces, {} - java script function defined as a value. i.e. define a function and assign that to a variable. Then, access that variable inside the {} as event Handler function.
+
+* Passing Method References Between Components - we want to do this to achieve the design pattern where the state change logic will be limited to certain components and other components will be relying on it to perform this logic. Hence, the passing method reference between components is necessary.
+
+
 When you now access `npm start` and the app at `http://localhost:3000`, you will see the text has changed.
