@@ -18,7 +18,12 @@ class App extends Component {
       <div className="App">
         <h1>Hello, happy learning react!</h1>
         {
-          this.state.Persons.map (p => {return <Person name={p.name} key={p.id}>{p.text}</Person>})
+          this.state.Persons.map (p => {
+            if (p.name) {
+              return <Person name={p.name} key={p.id}>{p.text}</Person>
+            }
+            return null;
+          })
         }  
       </div>
     );
