@@ -71,4 +71,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## README-work.md
 This is the reference for the work done as part of initial learning to this default react project.
-link:README-work.md[ReadMe-work]
+
+As we learn more in the [Learn React App documentation](https://github.com/toneeraj/learn-react-app/blob/master/README-work.md).
+
+
