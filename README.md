@@ -1,77 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Section - Initial Project Setup
 
-## Available Scripts
+Please refer [README-setup.md](https://github.com/toneeraj/learn-react-app/blob/master/README-setup.md) to know about the initial react app project structure.
 
-In the project directory, you can run:
+## Introduction
 
-### `npm start`
+This is the sample learning app with code samples and working solution. The approach is to obtain the concept and then write the minimal code to bring home the fundamental concept. Each below section correspond to one of those key learning items. 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You can clone the project and that will have all the below implementations.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Section - Initial Learning
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-----
-
-## README-work.md
-This is the reference for the work done as part of initial learning to this default react project.
-
-As we learn more in the [Learn React App documentation](https://github.com/toneeraj/learn-react-app/blob/master/README-work.md).
+* Update and see the changes in default project
+* Create a new Person Component and configure it as part of App.js
 
 
+### Update and see the changes in default project
+
+In App.js, just updated the below lines and now when you access 
+
+```javascript
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello, happy learning react!</h1>
+      </div>
+    );
+  }
+}
+```
+
+### Create a new Person Component
+This is a component defined as a JS function. This should always return a React DOM. 
+`<p>` tag used is from React library. React automatically passes the values of attributes to props.
+props is the convention, so using it for readability otherwise, any other value is also possible.
+Inside the `{}`, either we use props.`<name_of_attribute>` or the result of executing javascript function.
+
+```javascript
+import React from 'react';
+const person = (props) => {
+    let isNamePresent = '';
+    if (props.name == null) {
+        isNamePresent = 'Sorry, nothing was passed to me.'; 
+    } else {
+        isNamePresent = props.name;
+    }
+    return (
+    <p>I am a person component. The name attribute value passed to me is <b>{isNamePresent}</b>. 
+    I can also print a value/result from a javascript function here. For e.g. {Math.random()} </p>
+    );
+}
+
+export default person;
+
+```
+
+The above component can be accessed in App.js. Note that it has been invoked two times below.
+Firstly, without passing any *name* attribute. Secondly, with a value for **name** attribute.
+
+```javascript
+    <div className="App">
+        <h1>Hello, happy learning react!</h1>
+        <Person />
+        <Person name="react learner" />
+      </div>
+```
+
+When you now access `npm start` and the app at `http://localhost:3000`, you will see the text has changed.
